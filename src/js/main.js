@@ -18,6 +18,10 @@ $('#formAddComponent button').click(function (e) {
 	return false;
 })
 
+$('img').on('load', function() {
+    $(window).trigger("resize");
+});
+
 
 function IMGResponsive() {
 	// Set BG Resposive
