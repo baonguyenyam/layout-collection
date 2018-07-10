@@ -2,32 +2,36 @@ function getUIMG() {
 	$.get("/getimg", function (data) {
 		var rand = JSON.parse(data).lists
 		var DataIMG = JSON.parse(data).imgs
-		var temp = [], lis = []
+		var temp = [],
+			lis = []
 		getViewIMGIndexx(DataIMG)
 		for (var key in rand) {
 			if (rand.hasOwnProperty(key)) {
 				var classActive = ''
 				var em = window.location.pathname.split('/')[2]
-				if(em === key) {
+				if (em === key) {
 					classActive = ' active'
-				} 
-				lis.push('<option value="'+key+'">'+ key.charAt(0).toUpperCase() + key.slice(1) + '</option>')
-				temp.push('<a href="/view/'+ key + '" class="list-group-item list-group-item-action'+classActive+'">'+ key.charAt(0).toUpperCase() + key.slice(1) + '</a>')
+				}
+				lis.push('<option value="' + key + '">' + key.charAt(0).toUpperCase() + key.slice(1) + '</option>')
+				temp.push('<a href="/view/' + key + '" class="list-group-item list-group-item-action' + classActive + '">' + key.charAt(0).toUpperCase() + key.slice(1) + '</a>')
 			}
 		}
 		$('#imgPath').append(lis);
 		$('#main-container').html(temp);
+		$('body').imagesLoaded().done(function (instance) {
+			$(window).trigger("resize");
+		})
 	})
 }
 
 $(document).ready(function () {
 	getUIMG()
-	$(window).trigger("resize");
+
 });
 
 
 function getViewIMGIndexx(e) {
-	if(e.length>0) {
+	if (e.length > 0) {
 		$('#pagination-container').pagination({
 			dataSource: shuffle(e),
 			pageSize: 30,
@@ -69,7 +73,7 @@ function getViewIMGIndexx(e) {
 				$(window).trigger("resize");
 			}
 		})
-	} else{
+	} else {
 		$("#view-container").html('<div class="alert alert-danger" role="alert">Không có tập tin nào!</div>')
 	}
 }

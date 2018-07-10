@@ -16,12 +16,14 @@ function getUIMG() {
 		}
 		$('#imgPath').append(lis);
 		$('#main-container').html(temp);
+		$('body').imagesLoaded().done(function (instance) {
+			$(window).trigger("resize");
+		})
 	})
 }
 
 $(document).ready(function () {
 	getUIMG()
-	$(window).trigger("resize");
 });
 
 
