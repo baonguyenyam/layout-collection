@@ -4,8 +4,13 @@ function getUIMG() {
 		var temp = [], lis = []
 		for (var key in rand) {
 			if (rand.hasOwnProperty(key)) {
+				var classActive = ''
+				var em = window.location.pathname.split('/')[2]
+				if(em === key) {
+					classActive = ' active'
+				} 
 				lis.push('<option value="'+key+'">'+ key.charAt(0).toUpperCase() + key.slice(1) + '</option>')
-				temp.push('<a href="/view/'+ key + '" class="list-group-item list-group-item-action">'+ key.charAt(0).toUpperCase() + key.slice(1) + '</a>')
+				temp.push('<a href="/view/'+ key + '" class="list-group-item list-group-item-action'+classActive+'">'+ key.charAt(0).toUpperCase() + key.slice(1) + '</a>')
 			}
 		}
 		$('#imgPath').append(lis);

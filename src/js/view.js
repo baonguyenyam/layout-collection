@@ -33,7 +33,7 @@ function getViewIMG() {
 					wall.reset({
 						selector: '.item',
 						animate: true,
-						cellW: $(window).width() <= 768 ? 300 : 420,
+						cellW: $(window).width() <= 768 ? 200 : 220,
 						cellH: 'auto',
 						onResize: function () {
 							wall.fitWidth();
