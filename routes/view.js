@@ -21,7 +21,7 @@ router.get('/getimg/:id', function (req, res) {
 			for (var i = 0; i < files.length; i++) {
 				var filePath = dirPath + '/' + files[i];
 				if (fs.statSync(filePath).isFile()) {
-					if (filePath.indexOf(".") > -1) {
+					if (filePath.indexOf(".png") > -1 || filePath.indexOf(".jpg") > -1 || filePath.indexOf(".jpeg") > -1) {
 						listIMG.push(files[i])
 					}
 				} else {
