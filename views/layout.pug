@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= route + ' - ' + title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/fancybox.min.css')
+    link(rel='stylesheet', href='/stylesheets/pagination.css')
+    link(rel='stylesheet', href='/stylesheets/style.min.css')
+  body
+    header
+      nav.navbar.navbar-light.bg-info
+        a.navbar-brand.mb-0.h1.text-white(href="/") Layout Collection by Bao Nguyen
+    block content
+    script(src="/javascripts/jquery.min.js")
+    script(src="/javascripts/freewall.js")
+    script(src="/javascripts/fancybox.min.js")
+    script(src="/javascripts/pagination.min.js")
+    script(src="/javascripts/main.min.js")
+    block script

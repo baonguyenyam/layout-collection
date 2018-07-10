@@ -1,0 +1,12 @@
+.container-fluid.mt-4
+	.row 
+		.col-auto
+			form#formAddComponent.form-inline(enctype='multipart/form-data', method='POST')
+				.form-group.my-1.mr-sm-2
+					select#imgPath.custom-select(name="imgPath")
+				.my-1.mr-sm-2
+					.custom-file
+						input#imgUploader(type="file" class="custom-file-input" name="imgUploader")
+						label(class="custom-file-label" for="customFile") Choose file
+				.form-group
+					button#add.btn.btn-info Add new

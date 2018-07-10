@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	if (process.env.NODE_ENV === 'dev')
+		include __view
+	else 
+		script
+			include __view.js
+block script
+	script(src="/javascripts/view.min.js")
