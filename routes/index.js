@@ -5,7 +5,7 @@ var multer = require('multer');
 var crypto = require('crypto');
 var Storage = multer.diskStorage({
 	destination: function (req, file, callback) {
-		callback(null, "./public/img/"+ req.body.imgPath.trim());
+		callback(null, "./public/img/" + req.body.imgPath.trim());
 	},
 	filename: function (req, file, callback) {
 		let type = 'jpg'
@@ -19,7 +19,9 @@ var Storage = multer.diskStorage({
 		callback(null, crypto.createHash('md5').update(Date.now() + "_" + removeVietnam(file.originalname.substring(0, 10))).digest('hex') + '.' + type);
 	}
 });
-var upload = multer({ storage: Storage }).array(
+var upload = multer({
+	storage: Storage
+}).array(
 	"imgUploader",
 	10
 );
@@ -48,17 +50,43 @@ function removeVietnam(s) {
 };
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Layout Collection by Bao Nguyen', route: 'Home' });
+router.get('/', function (req, res, next) {
+	res.render('index', {
+		title: 'Layout Collection by Bao Nguyen',
+		route: 'Home'
+	});
 });
 
 
 router.get('/getimg', function (req, res) {
+	var path = require('path')
+	var listIMGFull = []
 	var listIMG = {}
+	var lists = {}
+
+	fromDir = function (startPath) {
+		if (!fs.existsSync(startPath)) {
+			return;
+		}
+		var files = fs.readdirSync(startPath);
+		for (var i = 0; i < files.length; i++) {
+			var filename = path.join(startPath, files[i]);
+			var stat = fs.lstatSync(filename);
+			if (stat.isDirectory()) {
+				fromDir(filename); //recurse
+			} else if (filename.indexOf('.png') >= 0 || filename.indexOf('.jpg') >= 0) {
+				listIMGFull.push(filename.replace('public/', '/'))
+			};
+		};
+		return listIMGFull
+	};
+
 	rmDir = function (dirPath) {
-		var listIMG = {}
-		try { var files = fs.readdirSync(dirPath); }
-		catch (e) { return; }
+		try {
+			var files = fs.readdirSync(dirPath);
+		} catch (e) {
+			return;
+		}
 		if (files.length > 0) {
 			for (var i = 0; i < files.length; i++) {
 				var filePath = dirPath + '/' + files[i];
@@ -67,9 +95,13 @@ router.get('/getimg', function (req, res) {
 				}
 			}
 		}
-		return JSON.stringify(listIMG)
+		return listIMG
 	};
-	return res.end(rmDir('./public/img'));
+
+	lists.imgs = fromDir('./public/img')
+	lists.lists = rmDir('./public/img')
+
+	return res.end(JSON.stringify(lists));
 
 })
 
