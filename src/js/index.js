@@ -22,6 +22,7 @@ function getUIMG() {
 
 $(document).ready(function () {
 	getUIMG()
+	$(window).trigger("resize");
 });
 
 
