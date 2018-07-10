@@ -20,7 +20,7 @@ $(document).ready(function () {
 $('#formAddComponent button').click(function (e) {
 	var data = new FormData($('#formAddComponent')[0]);
 	$.ajax({
-		url: '/upload',
+		url: '/page/upload',
 		type: 'POST',
 		contentType: false,
 		processData: false,

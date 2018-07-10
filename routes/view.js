@@ -29,8 +29,8 @@ router.get('/getimg/:id', function (req, res) {
 				}
       }
       lists.lists = listIMG
-			return JSON.stringify(lists)
-		}
+		} 
+		return JSON.stringify(lists)
   };
 	return res.end(rmDirFiles('./public/img/'+id));
 })

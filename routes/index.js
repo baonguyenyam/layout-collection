@@ -20,7 +20,6 @@ var Storage = multer.diskStorage({
 	}
 });
 var upload = multer({ storage: Storage }).array(
-	"imgPath",
 	"imgUploader",
 	10
 );
@@ -74,7 +73,7 @@ router.get('/getimg', function (req, res) {
 
 })
 
-router.post('/upload', function (req, res) {
+router.post('/page/upload', function (req, res) {
 	upload(req, res, function (err) {
 		if (err) {
 			return res.end("error");
